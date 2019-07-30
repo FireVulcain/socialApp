@@ -28,7 +28,7 @@ class Home extends Component {
                 return <Scream key={scream.screamId} scream={scream} />;
             })
         ) : (
-            <p>Loading...</p>
+            <p>Chargement...</p>
         );
         return (
             <Grid container spacing={10}>

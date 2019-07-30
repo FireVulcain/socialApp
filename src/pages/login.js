@@ -62,6 +62,7 @@ class Login extends Component {
         axios
             .post("/login", userData)
             .then((response) => {
+                localStorage.setItem("fireBaseIdToken", `Bearer ${response.data.token}`);
                 this.setState({ loading: false });
                 this.props.history.push("/");
             })
@@ -106,7 +107,7 @@ class Login extends Component {
                             id="password"
                             name="password"
                             type="password"
-                            label="Password"
+                            label="Mot de passe"
                             className={classes.TextField}
                             helperText={errors.password}
                             error={errors.password ? true : false}
@@ -119,19 +120,13 @@ class Login extends Component {
                                 {errors.general}
                             </Typography>
                         )}
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            disabled={loading}
-                        >
+                        <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={loading}>
                             Connexion
                             {loading && <CircularProgress size={30} className={classes.progress} />}
                         </Button>
                         <br />
                         <small>
-                            Dont have an account ? Sign up <Link to={"/signup"}>here</Link>
+                            Vous n'avez pas de compte ? Inscrivez-vous <Link to={"/signup"}>ici</Link>
                         </small>
                     </form>
                 </Grid>
