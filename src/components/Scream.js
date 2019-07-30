@@ -8,19 +8,37 @@ import relativeTime from "dayjs/plugin/relativeTime";
 // MUI STUFF
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+//import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
 const styles = {
     card: {
         display: "flex",
-        marginBottom: 20
+        padding: "9px 12px",
+        borderRadius: 0
     },
     image: {
-        minWidth: 200
+        width: 48,
+        height: 48,
+        borderRadius: 50,
+        display: "inline-block",
+        verticalAlign: "middle",
+        marginRight: 5
     },
     content: {
-        padding: 25
+        paddingTop: 10,
+        "&:last-child": {
+            paddingBottom: 10
+        }
+    },
+    inlineInfo: {
+        display: "inline-block",
+        marginLeft: 10,
+        verticalAlign: "middle"
+    },
+    postedAt: {
+        display: "inline-block",
+        marginLeft: 10
     }
 };
 
@@ -33,15 +51,33 @@ class Scream extends Component {
         } = this.props;
         return (
             <Card className={classes.card}>
-                <CardMedia image={userImage} title="Profil image" className={classes.image} />
                 <CardContent className={classes.content}>
-                    <Typography variant="h5" component={Link} to={`/user/${userHandle}`} color="primary">
-                        {userHandle}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                        {dayjs(createdAt).fromNow()}
-                    </Typography>
-                    <Typography variant="body1">{body}</Typography>
+                    <Link to={`/user/${userHandle}`}>
+                        <img
+                            src={userImage}
+                            title="Profil image"
+                            className={classes.image}
+                            alt=""
+                        />
+                    </Link>
+                    <div className={classes.inlineInfo}>
+                        <Typography
+                            variant="h6"
+                            component={Link}
+                            to={`/user/${userHandle}`}
+                            color="primary"
+                        >
+                            {userHandle}
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            className={classes.postedAt}
+                        >
+                            {dayjs(createdAt).fromNow()}
+                        </Typography>
+                        <Typography variant="body1">{body}</Typography>
+                    </div>
                 </CardContent>
             </Card>
         );
