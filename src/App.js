@@ -4,6 +4,10 @@ import "./App.css";
 import jwtDecode from "jwt-decode";
 import AuthRoute from "./util/AuthRoute";
 
+//Redux
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 //Pages
 import Home from "./pages/home";
 import Login from "./pages/login";
@@ -27,18 +31,28 @@ if (token) {
 class App extends Component {
     render() {
         return (
-            <div className="App">
+            <Provider store={store}>
                 <Router>
                     <Navbar />
                     <div className="container">
                         <Switch>
                             <Route exact path="/" component={Home} />
-                            <AuthRoute exact path="/login" component={Login} authenticated={authenticated} />
-                            <AuthRoute exact path="/signup" component={Signup} authenticated={authenticated} />
+                            <AuthRoute
+                                exact
+                                path="/login"
+                                component={Login}
+                                authenticated={authenticated}
+                            />
+                            <AuthRoute
+                                exact
+                                path="/signup"
+                                component={Signup}
+                                authenticated={authenticated}
+                            />
                         </Switch>
                     </div>
                 </Router>
-            </div>
+            </Provider>
         );
     }
 }

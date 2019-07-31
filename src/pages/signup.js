@@ -148,7 +148,13 @@ class Signup extends Component {
                                 {errors.general}
                             </Typography>
                         )}
-                        <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={loading}>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            className={classes.button}
+                            disabled={loading}
+                        >
                             Inscription
                             {loading && <CircularProgress size={30} className={classes.progress} />}
                         </Button>
