@@ -8,7 +8,6 @@ import relativeTime from "dayjs/plugin/relativeTime";
 // MUI STUFF
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-//import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
 const styles = {

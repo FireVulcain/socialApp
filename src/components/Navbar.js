@@ -13,13 +13,13 @@ class Navbar extends Component {
                 <AppBar>
                     <Toolbar className="navbar-container">
                         <Button color="inherit" component={Link} to="/">
-                            Home
+                            Accueil
                         </Button>
                         <Button color="inherit" component={Link} to="/login">
-                            Login
+                            Se connecter
                         </Button>
                         <Button color="inherit" component={Link} to="/signup">
-                            Signup
+                            S'inscrire
                         </Button>
                     </Toolbar>
                 </AppBar>

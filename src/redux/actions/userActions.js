@@ -1,4 +1,4 @@
-import { SET_USER, SET_ERRORS, LOADING_UI, CLEAR_ERRORS } from "../types";
+import { SET_USER, SET_ERRORS, LOADING_UI, CLEAR_ERRORS, SET_UNAUTHENTICATED } from "../types";
 import axios from "axios";
 
 export const loginUser = (userData, history) => (dispatch) => {
@@ -6,9 +6,7 @@ export const loginUser = (userData, history) => (dispatch) => {
     axios
         .post("/login", userData)
         .then((response) => {
-            const fbIdToken = `Bearer ${response.data.token}`;
-            localStorage.setItem("fireBaseIdToken", fbIdToken);
-            axios.defaults.headers.common["Authorization"] = fbIdToken;
+            setAuthorizationHeader(response.data.token);
             dispatch(getUserData());
             dispatch({ type: CLEAR_ERRORS });
             history.push("/");
@@ -19,6 +17,30 @@ export const loginUser = (userData, history) => (dispatch) => {
                 payload: err.response.data
             });
         });
+};
+
+export const signUpUser = (newUserData, history) => (dispatch) => {
+    dispatch({ type: LOADING_UI });
+    axios
+        .post("/signup", newUserData)
+        .then((response) => {
+            setAuthorizationHeader(response.data.token);
+            dispatch(getUserData());
+            dispatch({ type: CLEAR_ERRORS });
+            history.push("/");
+        })
+        .catch((err) => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            });
+        });
+};
+
+export const logoutUser = () => (dispatch) => {
+    localStorage.removeItem("fireBaseIdToken");
+    delete axios.defaults.headers.common["Authorization"];
+    dispatch({ SET_UNAUTHENTICATED });
 };
 
 export const getUserData = () => (dispatch) => {
@@ -33,4 +55,10 @@ export const getUserData = () => (dispatch) => {
         .catch((err) => {
             console.log(err);
         });
+};
+
+const setAuthorizationHeader = (token) => {
+    const fbIdToken = `Bearer ${token}`;
+    localStorage.setItem("fireBaseIdToken", fbIdToken);
+    axios.defaults.headers.common["Authorization"] = fbIdToken;
 };
