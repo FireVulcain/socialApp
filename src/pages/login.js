@@ -41,7 +41,6 @@ const styles = {
         position: "absolute"
     }
 };
-
 class Login extends Component {
     constructor() {
         super();
