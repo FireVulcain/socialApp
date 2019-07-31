@@ -1,6 +1,6 @@
 ## 1: Install packages
 
-run `npm instll`
+run `npm install`
 
 ## 2: Run project
 
