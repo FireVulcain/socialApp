@@ -20,7 +20,7 @@ const styles = {
         textAlign: "center"
     },
     image: {
-        width: "50%",
+        width: "30%",
         margin: "20px auto"
     },
     pageTitle: {

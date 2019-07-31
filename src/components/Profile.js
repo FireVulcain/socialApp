@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import MuiLink from "@material-ui/core/Link";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 //Redux stuff
 import { connect } from "react-redux";
@@ -67,6 +68,10 @@ const styles = {
         "& a": {
             margin: "20px 10px"
         }
+    },
+    loadingUserInfo: {
+        position: "absolute",
+        left: "50%"
     }
 };
 
@@ -82,6 +87,9 @@ class Profile extends Component {
             }
         } = this.props;
 
+        // Double ternaire : Si on est en 'loading=true' on affiche 'Chargement' sinon on verifie si on est authentifier.
+        // Si on est authentifier, on affiche les infos du user, sinon on affiche un message avec 2 boutons (login / signup)
+        // !loading ? (authenticated ? (user data) : (signup / login) ) : (Loading message)
         let profileMarkup = !loading ? (
             authenticated ? (
                 <Paper className={classes.paper}>
@@ -119,18 +127,18 @@ class Profile extends Component {
                                 </Fragment>
                             )}
                             <CalendarToday color="primary" />{" "}
-                            <span>A rejoint Scream en {dayjs(createdAt).format("MMM YYYY")}</span>
+                            <span>A rejoint Scream! en {dayjs(createdAt).format("MMMM YYYY")}</span>
                         </div>
                     </div>
                 </Paper>
             ) : (
                 <Paper className={classes.paper}>
                     <Typography variant="body2" align="center">
-                        No profile found, please login.
+                        Aucun profil trouvé, veuillez vous connecter.
                     </Typography>
                     <div className={classes.buttons}>
                         <Button variant="contained" color="primary" component={Link} to={"/login"}>
-                            Login
+                            Connexion
                         </Button>
                         <Button
                             variant="contained"
@@ -138,13 +146,13 @@ class Profile extends Component {
                             component={Link}
                             to={"/signup"}
                         >
-                            Signup
+                            Inscription
                         </Button>
                     </div>
                 </Paper>
             )
         ) : (
-            <p>Loading....</p>
+            <CircularProgress size={30} className={classes.loadingUserInfo} />
         );
 
         return profileMarkup;

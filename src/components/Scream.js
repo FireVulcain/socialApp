@@ -6,14 +6,13 @@ import * as locale from "dayjs/locale/fr";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 // MUI STUFF
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 const styles = {
     card: {
         display: "flex",
-        padding: "9px 12px",
+        padding: "9px 25px",
         borderRadius: 0
     },
     image: {
@@ -49,8 +48,8 @@ class Scream extends Component {
             scream: { body, createdAt, userImage, userHandle, screamId, likeCount, commentCount }
         } = this.props;
         return (
-            <Card className={classes.card}>
-                <CardContent className={classes.content}>
+            <Paper className={classes.card}>
+                <div className={classes.content}>
                     <Link to={`/user/${userHandle}`}>
                         <img
                             src={userImage}
@@ -77,8 +76,8 @@ class Scream extends Component {
                         </Typography>
                         <Typography variant="body1">{body}</Typography>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </Paper>
         );
     }
 }
