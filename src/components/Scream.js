@@ -47,12 +47,12 @@ class Scream extends Component {
             classes,
             scream: { body, createdAt, userHandle, userImage, screamId, likeCount, commentCount },
             user: {
-                credentials: { handle: authenticatedUserImage, imageUrl: authenticatedImageUrl }
+                credentials: { handle: authenticatedUserName, imageUrl: authenticatedUserImage }
             }
         } = this.props;
 
         const screamImage =
-            userHandle === authenticatedUserImage ? authenticatedImageUrl : userImage;
+            userHandle === authenticatedUserName ? authenticatedUserImage : userImage;
 
         return (
             <Paper className={classes.card}>
