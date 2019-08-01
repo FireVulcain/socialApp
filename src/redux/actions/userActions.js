@@ -73,7 +73,7 @@ export const uploadImage = (formData) => (dispatch) => {
             dispatch(getUserData());
         })
         .catch((err) => {
-            console.log(err);
+            console.error(err);
         });
 };
 

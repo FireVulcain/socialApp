@@ -45,14 +45,21 @@ class Scream extends Component {
         dayjs.extend(relativeTime).locale(locale);
         const {
             classes,
-            scream: { body, createdAt, userImage, userHandle, screamId, likeCount, commentCount }
+            scream: { body, createdAt, userHandle, userImage, screamId, likeCount, commentCount },
+            user: {
+                credentials: { handle: authenticatedUserImage, imageUrl: authenticatedImageUrl }
+            }
         } = this.props;
+
+        const screamImage =
+            userHandle === authenticatedUserImage ? authenticatedImageUrl : userImage;
+
         return (
             <Paper className={classes.card}>
                 <div className={classes.content}>
                     <Link to={`/user/${userHandle}`}>
                         <img
-                            src={userImage}
+                            src={screamImage}
                             title="Profil image"
                             className={classes.image}
                             alt=""

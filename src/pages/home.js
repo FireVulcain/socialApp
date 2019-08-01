@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 import Scream from "./../components/Scream";
 import Profile from "./../components/Profile";
@@ -8,6 +9,9 @@ import Profile from "./../components/Profile";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
+
+//Redux stuff
+import { connect } from "react-redux";
 
 const styles = {
     loadingUserInfo: {
@@ -39,7 +43,7 @@ class Home extends Component {
 
         let recentScreamsMarkup = this.state.screams ? (
             this.state.screams.map((scream) => {
-                return <Scream key={scream.screamId} scream={scream} />;
+                return <Scream key={scream.screamId} scream={scream} user={this.props.user} />;
             })
         ) : (
             <CircularProgress size={30} className={classes.loadingUserInfo} />
@@ -57,4 +61,12 @@ class Home extends Component {
     }
 }
 
-export default withStyles(styles)(Home);
+const mapStateToProps = (state) => ({
+    user: state.user
+});
+
+Home.propTypes = {
+    user: PropTypes.object.isRequired
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(Home));
