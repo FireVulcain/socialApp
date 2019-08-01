@@ -26,7 +26,7 @@ const styles = {
         width: "100%"
     },
     button: {
-        float: "left"
+        float: "right"
     }
 };
 
@@ -37,9 +37,12 @@ class EditDetails extends Component {
         location: "",
         open: false
     };
-    componentDidMount = () => {
-        const { credentials } = this.props;
-        this.setUserDetailsToState(credentials);
+    setUserDetailsToState = (credentials) => {
+        this.setState({
+            bio: credentials.bio ? credentials.bio : "",
+            website: credentials.website ? credentials.website : "",
+            location: credentials.location ? credentials.location : ""
+        });
     };
     handleOpen = () => {
         this.setState({ open: true });
@@ -48,6 +51,11 @@ class EditDetails extends Component {
     handleClose = () => {
         this.setState({ open: false });
     };
+    componentDidMount = () => {
+        const { credentials } = this.props;
+        this.setUserDetailsToState(credentials);
+    };
+
     handleChange = (event) => {
         const { name, value } = event.target;
         this.setState({
@@ -64,13 +72,6 @@ class EditDetails extends Component {
         this.handleClose();
     };
 
-    setUserDetailsToState = (credentials) => {
-        this.setState({
-            bio: credentials.bio ? credentials.bio : "",
-            website: credentials.website ? credentials.website : "",
-            location: credentials.location ? credentials.location : ""
-        });
-    };
     render() {
         const { classes } = this.props;
         return (
@@ -95,21 +96,21 @@ class EditDetails extends Component {
                                 onChange={this.handleChange}
                             />
                             <TextField
-                                name="website"
-                                type="text"
-                                label="Site web"
-                                placeholder="Votre site personnel/professionnel"
-                                className={classes.textField}
-                                value={this.state.website}
-                                onChange={this.handleChange}
-                            />
-                            <TextField
                                 name="location"
                                 type="text"
                                 label="Location"
                                 placeholder="Où habitez-vous ?"
                                 className={classes.textField}
                                 value={this.state.location}
+                                onChange={this.handleChange}
+                            />
+                            <TextField
+                                name="website"
+                                type="text"
+                                label="Site web"
+                                placeholder="Votre site personnel/professionnel"
+                                className={classes.textField}
+                                value={this.state.website}
                                 onChange={this.handleChange}
                             />
                         </form>

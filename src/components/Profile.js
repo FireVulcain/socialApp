@@ -78,9 +78,6 @@ const styles = {
     loadingUserInfo: {
         position: "absolute",
         left: "50%"
-    },
-    logoutUser: {
-        textAlign: "right"
     }
 };
 
@@ -166,14 +163,12 @@ class Profile extends Component {
                         </div>
                         <hr />
                         <hr />
-                        <div className={classes.logoutUser}>
-                            <Tooltip title="Logout" placement="right">
-                                <IconButton onClick={this.handleLogout}>
-                                    <KeyboardReturn color="primary" />
-                                </IconButton>
-                            </Tooltip>
-                            <EditDetails />
-                        </div>
+                        <Tooltip title="Logout" placement="right">
+                            <IconButton onClick={this.handleLogout}>
+                                <KeyboardReturn color="primary" />
+                            </IconButton>
+                        </Tooltip>
+                        <EditDetails />
                     </div>
                 </Paper>
             ) : (

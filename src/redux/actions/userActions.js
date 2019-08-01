@@ -78,10 +78,12 @@ export const uploadImage = (formData) => (dispatch) => {
 };
 
 export const editUserDetails = (userDetails) => (dispatch) => {
+    console.log(userDetails);
     dispatch({ type: LOADING_USER });
     axios
         .post("/user", userDetails)
-        .then(() => {
+        .then((res) => {
+            console.log(res);
             dispatch(getUserData());
         })
         .catch((err) => {
