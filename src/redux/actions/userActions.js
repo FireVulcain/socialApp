@@ -77,6 +77,18 @@ export const uploadImage = (formData) => (dispatch) => {
         });
 };
 
+export const editUserDetails = (userDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios
+        .post("/user", userDetails)
+        .then(() => {
+            dispatch(getUserData());
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+};
+
 const setAuthorizationHeader = (token) => {
     const fbIdToken = `Bearer ${token}`;
     localStorage.setItem("fireBaseIdToken", fbIdToken);

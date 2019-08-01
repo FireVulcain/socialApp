@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import * as locale from "dayjs/locale/fr";
+import EditDetails from "./EditDetails";
 
 //MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -164,12 +165,14 @@ class Profile extends Component {
                             <span>A rejoint Scream! en {dayjs(createdAt).format("MMMM YYYY")}</span>
                         </div>
                         <hr />
+                        <hr />
                         <div className={classes.logoutUser}>
                             <Tooltip title="Logout" placement="right">
                                 <IconButton onClick={this.handleLogout}>
                                     <KeyboardReturn color="primary" />
                                 </IconButton>
                             </Tooltip>
+                            <EditDetails />
                         </div>
                     </div>
                 </Paper>
