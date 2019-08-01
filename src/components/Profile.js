@@ -140,8 +140,12 @@ class Profile extends Component {
                                 @{handle}
                             </MuiLink>
                             <hr />
-                            {bio && <Typography variant="body2">{bio}</Typography>}
-                            <hr />
+                            {bio && (
+                                <Fragment>
+                                    <Typography variant="body2">{bio}</Typography>
+                                    <hr />
+                                </Fragment>
+                            )}
                             {location && (
                                 <Fragment>
                                     <LocationOn color="primary" /> <span>{location}</span>
