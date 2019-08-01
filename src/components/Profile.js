@@ -23,6 +23,7 @@ import CalendarToday from "@material-ui/icons/CalendarToday";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import Tooltip from "@material-ui/core/Tooltip";
+import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 
 const styles = {
     paper: {
@@ -76,6 +77,9 @@ const styles = {
     loadingUserInfo: {
         position: "absolute",
         left: "50%"
+    },
+    logoutUser: {
+        textAlign: "right"
     }
 };
 
@@ -92,6 +96,9 @@ class Profile extends Component {
         fileInput.click();
     };
 
+    handleLogout = () => {
+        this.props.logoutUser();
+    };
     render() {
         dayjs.locale(locale);
         const {
@@ -155,6 +162,14 @@ class Profile extends Component {
                             )}
                             <CalendarToday color="primary" />{" "}
                             <span>A rejoint Scream! en {dayjs(createdAt).format("MMMM YYYY")}</span>
+                        </div>
+                        <hr />
+                        <div className={classes.logoutUser}>
+                            <Tooltip title="Logout" placement="right">
+                                <IconButton onClick={this.handleLogout}>
+                                    <KeyboardReturn color="primary" />
+                                </IconButton>
+                            </Tooltip>
                         </div>
                     </div>
                 </Paper>
