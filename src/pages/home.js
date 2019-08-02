@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
 
 import Scream from "./../components/Scream";
@@ -12,6 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 //Redux stuff
 import { connect } from "react-redux";
+import { getScreams } from "../redux/actions/dataActions";
 
 const styles = {
     loadingUserInfo: {
@@ -21,28 +21,16 @@ const styles = {
 };
 
 class Home extends Component {
-    state = {
-        screams: null
-    };
-
     componentDidMount() {
-        axios
-            .get("/screams")
-            .then((response) => {
-                this.setState({
-                    screams: response.data
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        this.props.getScreams();
     }
 
     render() {
+        const { screams, loading } = this.props.data;
         const { classes } = this.props;
 
-        let recentScreamsMarkup = this.state.screams ? (
-            this.state.screams.map((scream) => {
+        let recentScreamsMarkup = !loading ? (
+            screams.map((scream) => {
                 return <Scream key={scream.screamId} scream={scream} user={this.props.user} />;
             })
         ) : (
@@ -61,12 +49,18 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    user: state.user
-});
-
 Home.propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
+    getScreams: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Home));
+const mapStateToProps = (state) => ({
+    user: state.user,
+    data: state.data
+});
+
+export default connect(
+    mapStateToProps,
+    { getScreams }
+)(withStyles(styles)(Home));
