@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import * as locale from "dayjs/locale/fr";
 import EditDetails from "./EditDetails";
+import CustomButton from "../util/CustomButton";
 
 //MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -21,9 +22,7 @@ import { logoutUser, uploadImage } from "../redux/actions/userActions";
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
-import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
-import Tooltip from "@material-ui/core/Tooltip";
 import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 
 const styles = {
@@ -123,11 +122,13 @@ class Profile extends Component {
                                 onChange={this.handleImageChange}
                                 hidden="hidden"
                             />
-                            <Tooltip title="Edit profile picture" placement="right">
-                                <IconButton onClick={this.handleEditPicture} className="button">
-                                    <EditIcon color="primary" />
-                                </IconButton>
-                            </Tooltip>
+                            <CustomButton
+                                tip="Changer de photo de profil"
+                                onClick={this.handleEditPicture}
+                                btnClassName="button"
+                            >
+                                <EditIcon color="primary" />
+                            </CustomButton>
                         </div>
                         <hr />
                         <div className="profile-details">
@@ -167,11 +168,9 @@ class Profile extends Component {
                         </div>
                         <hr />
                         <hr />
-                        <Tooltip title="Logout" placement="right">
-                            <IconButton onClick={this.handleLogout}>
-                                <KeyboardReturn color="primary" />
-                            </IconButton>
-                        </Tooltip>
+                        <CustomButton tip="Se déconnecter" onClick={this.handleLogout}>
+                            <KeyboardReturn color="primary" />
+                        </CustomButton>
                         <EditDetails />
                     </div>
                 </Paper>

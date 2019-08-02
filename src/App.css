@@ -21,3 +21,6 @@ a {
 .relativeElement {
     position: relative;
 }
+.navbar-container svg {
+    color: #ffffff;
+}
