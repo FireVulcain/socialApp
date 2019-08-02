@@ -25,11 +25,11 @@ class Navbar extends Component {
                     <Toolbar className="navbar-container">
                         {authenticated ? (
                             <Fragment>
-                                <CustomButton tip="Post a Scream!">
+                                <CustomButton tip="Scream!">
                                     <AddIcon />
                                 </CustomButton>
                                 <Link to="/">
-                                    <CustomButton tip="Home">
+                                    <CustomButton tip="Accueil">
                                         <HomeIcon />
                                     </CustomButton>
                                 </Link>

@@ -15,7 +15,16 @@ import DeleteOutline from "@material-ui/icons/DeleteOutline";
 import { connect } from "react-redux";
 import { deleteScream } from "../redux/actions/dataActions";
 
-const styles = {};
+const styles = {
+    deleteButton: {
+        position: "absolute",
+        left: "90%",
+        top: "10px"
+    },
+    confirmDeleteBox: {
+        justifyContent: "center"
+    }
+};
 
 class DeleteScream extends Component {
     state = {
@@ -34,6 +43,7 @@ class DeleteScream extends Component {
 
     render() {
         const { classes } = this.props;
+
         return (
             <Fragment>
                 <CustomButton
@@ -43,9 +53,9 @@ class DeleteScream extends Component {
                 >
                     <DeleteOutline color="secondary" />
                 </CustomButton>
-                <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="sm">
-                    <DialogTitle>Supprimer ?</DialogTitle>
-                    <DialogActions>
+                <Dialog open={this.state.open} onClose={this.handleClose}>
+                    <DialogTitle>Supprimer le Scream! ?</DialogTitle>
+                    <DialogActions className={classes.confirmDeleteBox}>
                         <Button onClick={this.handleClose} color="primary">
                             Annuler
                         </Button>
@@ -64,7 +74,6 @@ DeleteScream.propTypes = {
     classes: PropTypes.object.isRequired,
     screamId: PropTypes.string.isRequired
 };
-
 export default connect(
     null,
     { deleteScream }

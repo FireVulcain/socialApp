@@ -53,7 +53,6 @@ export const deleteScream = (screamId) => (dispatch) => {
     axios
         .delete(`/scream/${screamId}`)
         .then(() => {
-            console.log("deleted");
             dispatch({ type: DELETE_SCREAM, payload: screamId });
         })
         .catch((err) => console.log(err));
