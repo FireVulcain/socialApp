@@ -98,6 +98,7 @@ class PostScream extends Component {
                                 type="text"
                                 label="Scream!"
                                 placeholder="Scream!"
+                                multiline
                                 error={errors.body ? true : false}
                                 helperText={errors.body}
                                 className={classes.textField}
