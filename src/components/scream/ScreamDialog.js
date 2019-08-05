@@ -1,17 +1,16 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import CustomButton from "../util/CustomButton";
+import CustomButton from "../../util/CustomButton";
 import dayjs from "dayjs";
 import * as locale from "dayjs/locale/fr";
 import { Link } from "react-router-dom";
+import LikeButton from "./LikeButton";
+import Comments from "./Comments";
 
 //MUI STUFF
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -19,15 +18,21 @@ import Typography from "@material-ui/core/Typography";
 //MUI Icon
 import Close from "@material-ui/icons/Close";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
+import ChatIcon from "@material-ui/icons/ChatBubbleOutline";
 
 //redux stuff
 import { connect } from "react-redux";
-import { getScream } from "../redux/actions/dataActions";
+import { getScream } from "../../redux/actions/dataActions";
 
 const styles = {
     invisibleSeprator: {
         border: "none",
         margin: 4
+    },
+    separator: {
+        border: "1px solid #cecece",
+        margin: "20px 0",
+        width: "100%"
     },
     profileImage: {
         maxWidth: 200,
@@ -36,11 +41,12 @@ const styles = {
         objectFit: "cover"
     },
     dialogContent: {
-        padding: 20
+        padding: "40px 20px"
     },
     closeButton: {
         position: "absolute",
-        left: "90%"
+        left: "90%",
+        top: "5%"
     },
     circularProgress: {
         display: "block",
@@ -62,12 +68,21 @@ class ScreamDialog extends Component {
         dayjs.locale(locale);
         const {
             classes,
-            scream: { screamId, body, createdAt, likeCount, commentCount, userImage, userHandle },
+            scream: {
+                screamId,
+                body,
+                createdAt,
+                likeCount,
+                commentCount,
+                userImage,
+                userHandle,
+                comments
+            },
             UI: { loading }
         } = this.props;
 
         const dialogMarkup = loading ? (
-            <CircularProgress size={50} className={classes.circularProgress} />
+            <CircularProgress size={90} className={classes.circularProgress} thickness={2} />
         ) : (
             <Grid container>
                 <Grid item sm={5}>
@@ -90,7 +105,15 @@ class ScreamDialog extends Component {
                     </Typography>
                     <hr className={classes.invisibleSeprator} />
                     <Typography variant="body1">{body}</Typography>
+                    <LikeButton screamId={screamId} />
+                    <span>{likeCount}</span>
+                    <CustomButton tip="">
+                        <ChatIcon color="primary" />
+                    </CustomButton>
+                    <span>{commentCount}</span>
                 </Grid>
+                <hr className={classes.separator} />
+                <Comments comments={comments} />
             </Grid>
         );
 

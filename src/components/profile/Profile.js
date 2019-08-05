@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import * as locale from "dayjs/locale/fr";
 import EditDetails from "./EditDetails";
-import CustomButton from "../util/CustomButton";
+import CustomButton from "../../util/CustomButton";
 
 //MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -16,7 +16,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 //Redux stuff
 import { connect } from "react-redux";
-import { logoutUser, uploadImage } from "../redux/actions/userActions";
+import { logoutUser, uploadImage } from "../../redux/actions/userActions";
 
 //Icons
 import LocationOn from "@material-ui/icons/LocationOn";

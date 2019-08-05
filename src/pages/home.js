@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import Scream from "./../components/Scream";
-import Profile from "./../components/Profile";
+import Scream from "./../components/scream/Scream";
+import Profile from "./../components/profile/Profile";
 
 // MUI STUFF
 import withStyles from "@material-ui/core/styles/withStyles";

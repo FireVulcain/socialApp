@@ -12,14 +12,12 @@ import Typography from "@material-ui/core/Typography";
 
 //Icon
 import ChatIcon from "@material-ui/icons/ChatBubbleOutline";
-import FavIcon from "@material-ui/icons/Favorite";
-import UnFavIcon from "@material-ui/icons/FavoriteBorderOutlined";
 
 import { connect } from "react-redux";
-import { likeScream, unlikeScream } from "../redux/actions/dataActions";
-import CustomButton from "../util/CustomButton";
+import CustomButton from "../../util/CustomButton";
 import DeleteScream from "./DeleteScream";
 import ScreamDialog from "./ScreamDialog";
+import LikeButton from "./LikeButton";
 
 const styles = {
     card: {
@@ -63,22 +61,6 @@ const styles = {
 };
 
 class Scream extends Component {
-    likedScream = () => {
-        if (
-            this.props.user.likes &&
-            this.props.user.likes.find((like) => like.screamId === this.props.scream.screamId)
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    };
-    likeScream = () => {
-        this.props.likeScream(this.props.scream.screamId);
-    };
-    unlikeScream = () => {
-        this.props.unlikeScream(this.props.scream.screamId);
-    };
     render() {
         dayjs.extend(relativeTime).locale(locale);
         const {
@@ -92,21 +74,6 @@ class Scream extends Component {
 
         const screamImage =
             userHandle === authenticatedUserName ? authenticatedUserImage : userImage;
-        const likeButton = !authenticated ? (
-            <CustomButton tip="Like">
-                <Link to="/login">
-                    <UnFavIcon />
-                </Link>
-            </CustomButton>
-        ) : this.likedScream() ? (
-            <CustomButton tip="" onClick={this.unlikeScream}>
-                <FavIcon color="primary" />
-            </CustomButton>
-        ) : (
-            <CustomButton tip="" onClick={this.likeScream}>
-                <UnFavIcon color="primary" />
-            </CustomButton>
-        );
 
         const deleteButton =
             authenticated && userHandle === authenticatedUserName ? (
@@ -144,7 +111,7 @@ class Scream extends Component {
                         <Typography variant="body1">{body}</Typography>
                         <div className={classes.screamActions}>
                             <div className={classes.screamAction}>
-                                {likeButton}
+                                <LikeButton screamId={screamId} />
                                 <span>{likeCount}</span>
                             </div>
                             <div className={classes.screamAction}>
@@ -165,8 +132,6 @@ class Scream extends Component {
 }
 
 Scream.propTypes = {
-    likeScream: PropTypes.func.isRequired,
-    unlikeScream: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     scream: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
@@ -176,12 +141,4 @@ const mapStateToProps = (state) => ({
     user: state.user
 });
 
-const mapActionsToProps = {
-    likeScream,
-    unlikeScream
-};
-
-export default connect(
-    mapStateToProps,
-    mapActionsToProps
-)(withStyle(styles)(Scream));
+export default connect(mapStateToProps)(withStyle(styles)(Scream));
