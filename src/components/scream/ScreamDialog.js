@@ -7,6 +7,7 @@ import * as locale from "dayjs/locale/fr";
 import { Link } from "react-router-dom";
 import LikeButton from "./LikeButton";
 import Comments from "./Comments";
+import CommentForm from "./CommentForm";
 
 //MUI STUFF
 import Dialog from "@material-ui/core/Dialog";
@@ -22,7 +23,7 @@ import ChatIcon from "@material-ui/icons/ChatBubbleOutline";
 
 //redux stuff
 import { connect } from "react-redux";
-import { getScream } from "../../redux/actions/dataActions";
+import { getScream, clearErrors } from "../../redux/actions/dataActions";
 
 const styles = {
     invisibleSeprator: {
@@ -63,6 +64,7 @@ class ScreamDialog extends Component {
     };
     handleClose = () => {
         this.setState({ open: false });
+        this.props.clearErrors();
     };
     render() {
         dayjs.locale(locale);
@@ -113,6 +115,7 @@ class ScreamDialog extends Component {
                     <span>{commentCount}</span>
                 </Grid>
                 <hr className={classes.separator} />
+                <CommentForm screamId={screamId} />
                 <Comments comments={comments} />
             </Grid>
         );
@@ -143,6 +146,7 @@ class ScreamDialog extends Component {
 
 ScreamDialog.propTypes = {
     getScream: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
     screamId: PropTypes.string.isRequired,
     userHandle: PropTypes.string.isRequired,
     scream: PropTypes.object.isRequired,
@@ -156,5 +160,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    { getScream }
+    { getScream, clearErrors }
 )(withStyles(styles)(ScreamDialog));
